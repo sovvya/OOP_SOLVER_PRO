@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="disabled-adaptations" content="watch">
+<title>ООП Билеты + Классы + Теория</title>
+<style>
+  :root {
+    --font-size: 11px;
+    --brightness: 1;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #000000;
+    color: #d4d4d4;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    font-size: var(--font-size);
+    line-height: 1.35;
+    padding: 2px 3px 45px 3px;
+    overflow-x: hidden;
+    filter: brightness(var(--brightness));
+  }
+
+  /* Верхняя панель управления */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.94);
+    border-bottom: 1px solid #252526;
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    padding: 4px 0;
+    margin-bottom: 5px;
+  }
+  .btn {
+    background: #1e1e1e;
+    color: #cccccc;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    padding: 4px 5px;
+    font-size: 10px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:active {
+    background: #0e639c;
+    color: #ffffff;
+  }
+
+  /* Разделители разделов */
+  .cat-title {
+    color: #858585;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 8px 2px 4px 2px;
+  }
+
+  /* Аккордеоны */
+  details {
+    background: #050505;
+    border: 1px solid #252526;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+  summary {
+    background: #181818;
+    color: #4ec9b0;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 7px 8px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  summary.ticket-sum {
+    color: #dcdcaa;
+    background: #1c1912;
+  }
+  summary.theory-sum {
+    color: #9cdcfe;
+    background: #141820;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: "+";
+    color: #858585;
+    font-size: 14px;
+  }
+  details[open] > summary {
+    border-bottom: 1px solid #252526;
+    background: #1e2a38;
+    color: #9cdcfe;
+  }
+  details[open] > summary::after {
+    content: "−";
+    color: #9cdcfe;
+  }
+
+  /* Карточки вопросов в билетах */
+  .qa {
+    padding: 5px 6px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .q {
+    color: #9cdcfe;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .a {
+    color: #d4d4d4;
+  }
+  .a ul, .a ol {
+    padding-left: 14px;
+    margin: 3px 0;
+  }
+  .a li {
+    margin-bottom: 2px;
+  }
+  .true {
+    color: #4ec9b0;
+    font-weight: 700;
+  }
+  .false {
+    color: #f44747;
+    font-weight: 700;
+  }
+  .err-note {
+    color: #ce9178;
+    font-size: 0.92em;
+    margin: 2px 0 4px 0;
+  }
+
+  /* Пояснения */
+  .note {
+    background: #1a1608;
+    border-left: 3px solid #cca700;
+    color: #dcdcaa;
+    padding: 5px 6px;
+    margin: 4px;
+    font-size: 0.92em;
+    border-radius: 4px;
+  }
+
+  /* Код и цвета VS Code Dark+ */
+  pre.cpp-code {
+    font-family: "SF Mono", Consolas, "Courier New", monospace;
+    font-size: var(--font-size);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    padding: 6px 4px;
+    color: #d4d4d4;
+    background: #000000;
+    tab-size: 2;
+  }
+
+  /* Палитра VS Code Dark+ */
+  .hl-cm   { color: #6A9955; font-style: italic; }
+  .hl-pp   { color: #C586C0; }
+  .hl-ctrl { color: #C586C0; }
+  .hl-kw   { color: #569CD6; }
+  .hl-type { color: #4EC9B0; }
+  .hl-fn   { color: #DCDCAA; }
+  .hl-str  { color: #CE9178; }
+  .hl-num  { color: #B5CEA8; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="btn" onclick="changeFont(-1)">A−</div>
+  <div class="btn" onclick="changeFont(1)">A+</div>
+  <div class="btn" onclick="toggleDim()">☾ Ярк.</div>
+  <div class="btn" onclick="closeAll()">▲ Все</div>
+</div>
+
+<div class="cat-title">📌 Решённые билеты</div>
+
+<!-- ==================== БИЛЕТ 1 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 1 (Теория + Stack&lt;T&gt;)</summary>
+
+  <div class="qa">
+    <div class="q">1. В любом классе следует определять конструктор копирования.</div>
+    <div class="a"><span class="false">Неверно.</span> Конструктор копирования необходимо определять только в тех классах, член-данные которых располагаются в динамической памяти (есть указатели). В остальных случаях достаточно конструктора копирования по умолчанию.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. Операции инкремент/декремент могут перегружаться как в префиксной, так и в постфиксной форме.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Статический массив объектов можно инициализировать при объявлении, но при этом требуется использовать только один какой-нибудь конструктор.</div>
+    <div class="a"><span class="false">Неверно.</span> При инициализации статического массива объектов в списке инициализации можно использовать разные конструкторы для различных элементов массива.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same):</div>
+    <div class="err-note">Ошибка: метод Print выводит поля текущего объекта, поэтому не должен принимать параметры (int a, int b, int c), которые затеняют поля класса.</div>
+<pre class="cpp-code">class Same
+{
+    int a, b, c;
+public:
+    Same(int A = 0, int B = 0, int C = 0);
+    void Print(); // ИСПРАВЛЕНО: убраны лишние аргументы
+};
+
+Same::Same(int A, int B, int C)
+{
+    a = A; b = B; c = C;
+}
+
+void Same::Print()
+{
+    cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; c &lt;&lt; endl;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. Какой тип доступа называется private?</div>
+    <div class="a">Тип доступа <b>private</b> (закрытый / собственный) означает, что член-данные и методы класса скрыты от внешнего использования и доступны только внутри методов самого этого класса, а также дружественным (friend) функциям и классам.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">ПРАКТИКА БИЛЕТ 1: Шаблон Stack (все методы вне класса)</div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;class T&gt;
+class Stack 
+{
+    T* arr;
+    int max;
+    int n;
+
+public:
+    // а) конструкторы (все)
+    Stack(int k = 50);
+    Stack(const Stack&lt;T&gt;&amp; s);
+
+    // б) деструктор
+    ~Stack();
+
+    // в) проверка на пустоту
+    bool IsEmpty() const;
+
+    // г) добавить в стек элемент
+    bool Push(const T&amp; elem);
+
+    // д) перегрузить оператор потокового вывода
+    template &lt;class U&gt;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Stack&lt;U&gt;&amp; s);
+};
+
+// Определения методов ВНЕ класса
+template &lt;class T&gt;
+Stack&lt;T&gt;::Stack(int k) 
+{
+    max = (k &gt; 0) ? k : 50;
+    n = 0;
+    arr = new T[max];
+}
+
+template &lt;class T&gt;
+Stack&lt;T&gt;::Stack(const Stack&lt;T&gt;&amp; s) 
+{
+    max = s.max;
+    n = s.n;
+    arr = new T[max];
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = s.arr[i];
+    }
+}
+
+template &lt;class T&gt;
+Stack&lt;T&gt;::~Stack() 
+{
+    delete[] arr;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::IsEmpty() const 
+{
+    return n == 0;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::Push(const T&amp; elem) 
+{
+    if (n == max) return false;
+    arr[n++] = elem;
+    return true;
+}
+
+template &lt;class U&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Stack&lt;U&gt;&amp; s) 
+{
+    for (int i = 0; i &lt; s.n; i++) {
+        out &lt;&lt; s.arr[i] &lt;&lt; " ";
+    }
+    return out;
+}</pre>
+  </div>
+</details>
+
+<!-- ==================== БИЛЕТ 4 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 4 (Теория + Array FindKey)</summary>
+
+  <div class="qa">
+    <div class="q">1. Деструктор имеет имя ~Имя_класса и не имеет возвращаемого значения.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. В классе один знак операции можно перегружать только один раз.</div>
+    <div class="a"><span class="false">Неверно.</span> В одном классе один и тот же знак операции можно перегружать несколько раз, если функции-операторы отличаются списком параметров (количеством или типами аргументов).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Единственный способ методам агрегированного класса получить доступ к член-данным объекта используемого класса – дружественность.</div>
+    <div class="a"><span class="false">Неверно.</span> Получить доступ к закрытым (private) член-данным используемого класса можно также через его открытые (public) методы (геттеры и сеттеры), либо напрямую, если член-данные объявлены в секции public.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same):</div>
+    <div class="err-note">Ошибка: написано Same::void Print(), а тип void должен стоять ПЕРЕД Same::</div>
+<pre class="cpp-code">class Same
+{
+    int a, b, c;
+public:
+    Same(int A = 0, int B = 0, int C = 0);
+    void Print();
+};
+
+Same::Same(int A, int B, int C)
+{
+    a = A; b = B; c = C;
+}
+
+// ИСПРАВЛЕНО: void стоит перед Same::
+void Same::Print()
+{
+    cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; c &lt;&lt; endl;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. Что такое конструктор?</div>
+    <div class="a"><b>Конструктор</b> — это специальный метод класса, который вызывается автоматически при создании объекта и предназначен для инициализации его член-данных (и выделения ресурсов). Его имя совпадает с именем класса, и он не имеет возвращаемого значения.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">ПРАКТИКА БИЛЕТ 4: Класс Array (с FindKey)</div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+class Array {
+private:
+    int* arr;
+    int n;
+
+public:
+    // 1. Конструкторы и деструктор
+    Array(int n_ = 0);
+    Array(const int* a, int n_);
+    Array(const Array&amp; other);
+    ~Array();
+
+    // 2. Функция поиска ключа (возвращает индекс или -1)
+    int FindKey(int key) const;
+
+    // 3. Перегрузка операторов
+    Array&amp; operator=(const Array&amp; other);
+    int&amp; operator[](int index);
+
+    Array&amp; operator+=(int key);     // добавление ключа в конец (меняет текущий)
+    Array operator+(int key) const; // добавление ключа в конец (создает новый)
+
+    Array&amp; operator-=(int key);     // удаление 1-го вхождения key (меняет текущий)
+    Array operator-(int key) const; // удаление 1-го вхождения key (создает новый)
+
+    bool operator==(const Array&amp; other) const;
+    bool operator!=(const Array&amp; other) const;
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; is, Array&amp; a);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Array&amp; a);
+};
+
+// Конструктор по умолчанию / с размером
+Array::Array(int n_) {
+    n = (n_ &gt; 0) ? n_ : 0;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = 0;
+    } else arr = nullptr;
+}
+
+// Конструктор перевода обычного массива в объект Array
+Array::Array(const int* a, int n_) {
+    n = (n_ &gt; 0) ? n_ : 0;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = a[i];
+    } else arr = nullptr;
+}
+
+// Конструктор копирования
+Array::Array(const Array&amp; other) {
+    n = other.n;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = other.arr[i];
+    } else arr = nullptr;
+}
+
+// Деструктор
+Array::~Array() {
+    delete[] arr;
+}
+
+// ФУНКЦИЯ ПОИСКА КЛЮЧА: возвращает индекс или -1
+int Array::FindKey(int key) const {
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] == key) return i;
+    }
+    return -1;
+}
+
+// Оператор присвоения (=)
+Array&amp; Array::operator=(const Array&amp; other) {
+    if (this != &amp;other) { // Проверка на самоприсваивание
+        delete[] arr;     // Освобождаем старую память
+        n = other.n;
+        if (n &gt; 0) {
+            arr = new int[n];
+            for (int i = 0; i &lt; n; i++) arr[i] = other.arr[i];
+        } else arr = nullptr;
+    }
+    return *this;
+}
+
+// Оператор индексации ([]) — возвращает ссылку
+int&amp; Array::operator[](int index) {
+    return arr[index];
+}
+
+// Оператор += (добавление ключа key в конец массива)
+Array&amp; Array::operator+=(int key) {
+    int* temp = new int[n + 1];
+    for (int i = 0; i &lt; n; i++) temp[i] = arr[i];
+    temp[n] = key;
+    delete[] arr;
+    arr = temp;
+    n++;
+    return *this;
+}
+
+// Оператор + (добавление ключа key в конец, новый объект)
+Array Array::operator+(int key) const {
+    Array res(*this);
+    res += key;
+    return res;
+}
+
+// Оператор -= (удаление первого вхождения key через FindKey)
+Array&amp; Array::operator-=(int key) {
+    int pos = FindKey(key);
+    if (pos == -1) return *this;
+
+    if (n == 1) {
+        delete[] arr;
+        arr = nullptr;
+        n = 0;
+        return *this;
+    }
+
+    int* temp = new int[n - 1];
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) temp[j++] = arr[i];
+    }
+    delete[] arr;
+    arr = temp;
+    n--;
+    return *this;
+}
+
+// Оператор - (удаление первого вхождения key, новый объект)
+Array Array::operator-(int key) const {
+    Array res(*this);
+    res -= key;
+    return res;
+}
+
+// Операторы сравнения (== и !=)
+bool Array::operator==(const Array&amp; other) const {
+    if (n != other.n) return false;
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] != other.arr[i]) return false;
+    }
+    return true;
+}
+
+bool Array::operator!=(const Array&amp; other) const {
+    return !(*this == other);
+}
+
+// Потоковый ввод (&gt;&gt;) и вывод (&lt;&lt;)
+istream&amp; operator&gt;&gt;(istream&amp; is, Array&amp; a) {
+    for (int i = 0; i &lt; a.n; i++) is &gt;&gt; a.arr[i];
+    return is;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; os, const Array&amp; a) {
+    for (int i = 0; i &lt; a.n; i++) os &lt;&lt; a.arr[i] &lt;&lt; " ";
+    return os;
+}</pre>
+  </div>
+</details>
+
+<!-- ==================== БИЛЕТ 12 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 12 (Теория + Array DelPosNew)</summary>
+
+  <div class="qa">
+    <div class="q">1. Операцию присвоения следует перегружать только в тех классах, в которых член-данные (все или их часть) располагаются в динамической области памяти.</div>
+    <div class="a"><span class="true">Верно.</span> Стандартное почленное (побитовое) присвоение работает неверно только тогда, когда в классе задействована динамическая память (приводит к утечке памяти и двойному удалению одного указателя).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. Если требуется сделать функцию Func дружественной классу Some, то объявление об этом надо делать в самом начале объявления класса Some.</div>
+    <div class="a"><span class="false">Неверно.</span> Объявление дружественной функции с ключевым словом friend можно помещать в любом месте внутри класса (на него не влияют спецификаторы доступа private, protected, public).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Статические методы не могут вызываться через объекты, как обычные методы.</div>
+    <div class="a"><span class="false">Неверно.</span> Статические методы можно вызывать как через имя класса (Class::Method()), так и через объект класса (obj.Method()).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same с operator+=):</div>
+    <div class="err-note">Ошибки: 1) В operator+= создавался локальный объект T и возвращалась ссылка на него, а должен изменяться текущий объект (*this) и возвращаться *this. 2) В конструкторе пропущены типы int перед B и C, в списке инициализации стояли ; вместо запятых, и пропущена ; после описания класса.</div>
+<pre class="cpp-code">class Same
+{
+    int a, b, c;
+public:
+    Same(int A = 0, int B = 0, int C = 0) : a(A), b(B), c(C) {}
+    void Print();
+    Same&amp; operator+=(Same X);
+};
+
+void Same::Print()
+{
+    cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; c &lt;&lt; ' ' &lt;&lt; endl;
+}
+
+Same&amp; Same::operator+=(Same X)
+{
+    // ИСПРАВЛЕНО: меняем поля текущего объекта и возвращаем *this
+    a += X.a;
+    b += X.b;
+    c += X.c;
+    return *this;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. Что такое деструктор?</div>
+    <div class="a"><b>Деструктор</b> — это специальный метод класса, который вызывается автоматически при удалении (уничтожении) объекта для освобождения динамической памяти и ресурсов. Имеет имя ~Имя_класса, не имеет параметров и возвращаемого типа.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">ПРАКТИКА БИЛЕТ 12: Класс Array (DelPosNew, +=, =, ==, &lt;&lt;)</div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+class Array {
+    int* arr;
+    int n;
+
+public:
+    Array(int size = 0);
+    Array(const Array&amp; other);
+    ~Array();
+
+    Array DelPosNew(int pos) const;
+    Array&amp; operator+=(int key);
+    Array&amp; operator=(const Array&amp; other);
+    bool operator==(const Array&amp; other) const;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Array&amp; a);
+};
+
+// Конструктор (с параметром по умолчанию)
+Array::Array(int size) {
+    n = (size &gt; 0) ? size : 0;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = 0;
+    } else {
+        arr = nullptr;
+    }
+}
+
+// Конструктор копирования
+Array::Array(const Array&amp; other) {
+    n = other.n;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = other.arr[i];
+    } else {
+        arr = nullptr;
+    }
+}
+
+// Деструктор
+Array::~Array() {
+    delete[] arr;
+}
+
+// Удаление элемента с позиции pos (создается НОВЫЙ объект)
+Array Array::DelPosNew(int pos) const {
+    if (pos &lt; 0 || pos &gt;= n) return *this;
+
+    Array temp(n - 1);
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) {
+            temp.arr[j++] = arr[i];
+        }
+    }
+    return temp;
+}
+
+// Перегрузка += (добавление ключа key в конец массива)
+Array&amp; Array::operator+=(int key) {
+    int* temp = new int[n + 1];
+    for (int i = 0; i &lt; n; i++) {
+        temp[i] = arr[i];
+    }
+    temp[n] = key;
+    delete[] arr;
+    arr = temp;
+    n++;
+    return *this;
+}
+
+// Перегрузка = (оператор присвоения)
+Array&amp; Array::operator=(const Array&amp; other) {
+    if (this != &amp;other) {
+        delete[] arr;
+        n = other.n;
+        if (n &gt; 0) {
+            arr = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                arr[i] = other.arr[i];
+            }
+        } else {
+            arr = nullptr;
+        }
+    }
+    return *this;
+}
+
+// Перегрузка == (сравнение массивов)
+bool Array::operator==(const Array&amp; other) const {
+    if (n != other.n) return false;
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] != other.arr[i]) return false;
+    }
+    return true;
+}
+
+// Потоковый вывод &lt;&lt;
+ostream&amp; operator&lt;&lt;(ostream&amp; os, const Array&amp; a) {
+    for (int i = 0; i &lt; a.n; i++) {
+        os &lt;&lt; a.arr[i] &lt;&lt; " ";
+    }
+    return os;
+}</pre>
+  </div>
+</details>
+
+<!-- ==================== БИЛЕТ 14 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 14 (Теория)</summary>
+
+  <div class="qa">
+    <div class="q">1. В любом классе следует определять деструктор.</div>
+    <div class="a"><span class="false">Неверно.</span> Явно определять деструктор нужно только в тех классах, где член-данные располагаются в динамической памяти (или захватываются внешние ресурсы). В остальных случаях достаточно деструктора по умолчанию.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. Операции инкремент/декремент перегружаются только в префиксной форме.</div>
+    <div class="a"><span class="false">Неверно.</span> Они могут перегружаться как в префиксной форме (operator++()), так и в постфиксной форме (operator++(int)).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Если статическое член-данное имеет тип доступа «public», то к нему можно получить доступ в main через объект.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same с int* a):</div>
+    <div class="err-note">Ошибка в 15 строке (в operator=): после delete a; написано a = X.a; (копируется адрес указателя). Нужно выделить новую память a = new int; и скопировать значение *a = *(X.a);</div>
+<pre class="cpp-code">class Same
+{
+    int* a; float b;
+public:
+    Same(int A = 0, float B = 0);
+    Same(const Same&amp; X);
+    ~Same() { delete a; }
+    Same&amp; operator=(const Same&amp; X);
+    void Print();
+};
+
+Same::Same(int A, float B)
+{
+    a = new int; *a = A; b = B;
+}
+
+Same::Same(const Same&amp; X)
+{
+    a = new int; *a = *(X.a); b = X.b;
+}
+
+Same&amp; Same::operator=(const Same&amp; X)
+{
+    if (this != &amp;X) {
+        delete a;
+        a = new int;   // ИСПРАВЛЕНО: выделяем новую память
+        *a = *(X.a);   // ИСПРАВЛЕНО: копируем значение по указателю
+        b = X.b;
+    }
+    return *this;
+}
+
+void Same::Print()
+{
+    cout &lt;&lt; *a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; endl;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. В чем уникальность перегрузки операции ()?</div>
+    <div class="a">Операция вызова функции <b>operator()</b> — единственный оператор в C++, который может принимать <b>произвольное количество аргументов</b> (от 0 до любого числа параметров).</div>
+  </div>
+</details>
+
+<!-- ==================== БИЛЕТ 16 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 16 (Теория + Array DelPosNew)</summary>
+
+  <div class="qa">
+    <div class="q">1. Деструктор всегда не имеет аргументов.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. При перегрузке одноместная операция будет иметь один аргумент, двуместная операция – два аргумента.</div>
+    <div class="a"><span class="false">Неверно.</span> Если операция перегружается как метод класса, то одноместная операция не имеет аргументов, а двуместная имеет один аргумент. Один и два аргумента они имеют только при перегрузке через дружественную функцию (friend).</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Пусть A и B – некоторые классы и класс B имеет член-данное типа A. Конструктор класса B сначала вызовет конструктор из класса A, для инициализации член-данного типа A, а затем проинициализирует свои член-данные стандартного типа.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same с Sum()):</div>
+    <div class="err-note">Ошибки: 1) Лишняя точка с запятой после void Print() перед телом функции. 2) В main() метод Sum() вызван без указания объекта S — нужно S.Sum().</div>
+<pre class="cpp-code">class Same
+{
+    int a, b, c;
+public:
+    Same(int A = 0, int B = 0, int C = 0)
+        { a = A; b = B; c = C; }
+    void Print() // ИСПРАВЛЕНО: убрана ;
+        { cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; c &lt;&lt; endl; }
+    int Sum() { return a + b + c; }
+};
+
+int main()
+{
+    Same S(1, 2, 3);
+    int sum = S.Sum(); // ИСПРАВЛЕНО: вызов через объект S
+    cout &lt;&lt; sum &lt;&lt; endl;
+    return 0;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. Какой класс называется агрегированным?</div>
+    <div class="a"><b>Агрегированным</b> называется класс, который содержит в качестве своих член-данных объекты (или указатели на объекты) другого класса.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">ПРАКТИКА БИЛЕТ 16: Класс Array (DelPosNew, +=, =, ==, &lt;&lt;)</div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+class Array 
+{
+    int* arr;
+    int n;
+
+public:
+    Array(int n_ = 0);
+    Array(const Array&amp; other);
+    ~Array();
+
+    Array DelPosNew(int pos) const;
+
+    Array&amp; operator+=(int key);
+    Array&amp; operator=(const Array&amp; other);
+    bool operator==(const Array&amp; other) const;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Array&amp; a);
+};
+
+// Определения методов ВНЕ класса
+Array Array::DelPosNew(int pos) const 
+{
+    if (pos &lt; 0 || pos &gt;= n) return *this;
+    Array res(n - 1);
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) {
+            res.arr[j++] = arr[i];
+        }
+    }
+    return res;
+}
+
+Array&amp; Array::operator+=(int key) 
+{
+    int* temp = new int[n + 1];
+    for (int i = 0; i &lt; n; i++) {
+        temp[i] = arr[i];
+    }
+    temp[n] = key;
+    delete[] arr;
+    arr = temp;
+    n++;
+    return *this;
+}
+
+Array&amp; Array::operator=(const Array&amp; other) 
+{
+    if (this == &amp;other) return *this;
+    delete[] arr;
+    n = other.n;
+    arr = new int[n];
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = other.arr[i];
+    }
+    return *this;
+}
+
+bool Array::operator==(const Array&amp; other) const 
+{
+    if (n != other.n) return false;
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] != other.arr[i]) return false;
+    }
+    return true;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Array&amp; a) 
+{
+    for (int i = 0; i &lt; a.n; i++) {
+        out &lt;&lt; a.arr[i] &lt;&lt; " ";
+    }
+    return out;
+}</pre>
+  </div>
+</details>
+
+<!-- ==================== БИЛЕТ 21 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 21 (Практика FreeVector)</summary>
+  <div class="note">
+    <b>Обязательно написать в бланке:</b> Конструктор копирования и деструктор не требуются, т.к. в классе FreeVector нет указателей и не выделяется динамическая память (все поля double x, y, z лежат в стеке). Стандартный конструктор копирования (побитовое копирование) и деструктор по умолчанию работают корректно.
+  </div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+class FreeVector {
+private:
+    double x, y, z;
+
+public:
+    // Конструктор с параметрами по умолчанию (заменяет оба конструктора)
+    FreeVector(double _x = 0.0, double _y = 0.0, double _z = 0.0)
+        : x(_x), y(_y), z(_z) {}
+
+    // а) Скалярное произведение векторов (*)
+    double operator*(const FreeVector&amp; v) const;
+
+    // б) Разность векторов (- и -=)
+    FreeVector operator-(const FreeVector&amp; v) const;
+    FreeVector&amp; operator-=(const FreeVector&amp; v);
+
+    // в) Потоковый ввод &gt;&gt;
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, FreeVector&amp; v);
+};
+
+// Определения вне класса (сигнатуры строго совпадают!)
+
+double FreeVector::operator*(const FreeVector&amp; v) const {
+    return x * v.x + y * v.y + z * v.z;
+}
+
+FreeVector FreeVector::operator-(const FreeVector&amp; v) const {
+    return FreeVector(x - v.x, y - v.y, z - v.z);
+}
+
+FreeVector&amp; FreeVector::operator-=(const FreeVector&amp; v) {
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return *this;
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, FreeVector&amp; v) {
+    in &gt;&gt; v.x &gt;&gt; v.y &gt;&gt; v.z;
+    return in;
+}</pre>
+</details>
+
+<!-- ==================== БИЛЕТ 24 ==================== -->
+<details>
+  <summary class="ticket-sum">Билет 24 (Теория + Array FindKey, FindMin)</summary>
+
+  <div class="qa">
+    <div class="q">1. Операцию присвоения следует перегружать только в тех классах, в которых член-данные (все или их часть) располагаются в динамической области памяти.</div>
+    <div class="a"><span class="true">Верно.</span></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">2. Операции можно перегружать как дружественные классу. При этом двуместная операция будет иметь один аргумент, одноместная – ни одного.</div>
+    <div class="a"><span class="false">Неверно.</span> При перегрузке операции как дружественной классу (friend) двуместная операция будет иметь два аргумента, а одноместная — один аргумент.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">3. Вне зависимости от типа доступа, статический метод может быть вызван в main напрямую, через имя класса.</div>
+    <div class="a"><span class="false">Неверно.</span> Статический метод может быть вызван в main через имя класса только в том случае, если он имеет тип доступа public.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">4. Исправьте ошибку в коде (class Same с operator~ и operator~=):</div>
+    <div class="err-note">Ошибки: 1) Пропущены типы int перед B и C в конструкторе. 2) В списке инициализации стояли ; вместо запятых. 3) Операции ~= не существует в C++, перегружать несуществующие знаки операций запрещено (operator~= удаляем).</div>
+<pre class="cpp-code">class Same
+{
+    int a, b, c;
+public:
+    Same(int A = 0, int B = 0, int C = 0) : a(A), b(B), c(C) {}
+    void Print();
+    Same operator~();
+};
+
+void Same::Print()
+{
+    cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; ' ' &lt;&lt; c &lt;&lt; endl;
+}
+
+Same Same::operator~()
+{
+    Same T(-a, -b, -c);
+    return T;
+}</pre>
+  </div>
+
+  <div class="qa">
+    <div class="q">5. Что такое класс-шаблон. Как объявляется класс-шаблон.</div>
+    <div class="a"><b>Класс-шаблон</b> — это параметризованное описание класса, в котором типы член-данных, а также типы аргументов и возвращаемых значений методов не конкретизированы, а заданы с помощью параметров шаблона.<br>
+    Объявление: <code>template &lt;class T&gt; class Имя_класса { ... };</code></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">ПРАКТИКА БИЛЕТ 24: Класс Array (FindKey, FindMin, =, -, -=)</div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+class Array 
+{
+    int* arr;
+    int n;
+
+public:
+    Array(int n_ = 0);
+    Array(const Array&amp; other);
+    ~Array();
+
+    int FindKey(int key) const; // а) поиск ключа (индекс или -1)
+    int FindMin() const;        // б) индекс минимального элемента
+
+    Array&amp; operator=(const Array&amp; other); // а) присвоение
+    Array operator-(int key) const;       // б) удаляет 1-е вхождение key (новый объект)
+    Array&amp; operator-=(int key);           // в) удаляет 1-е вхождение key (меняет текущий)
+};
+
+// Определения методов ВНЕ класса
+int Array::FindKey(int key) const 
+{
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] == key) return i;
+    }
+    return -1;
+}
+
+int Array::FindMin() const 
+{
+    if (n &lt;= 0) return -1;
+    int minInd = 0;
+    for (int i = 1; i &lt; n; i++) {
+        if (arr[i] &lt; arr[minInd]) {
+            minInd = i;
+        }
+    }
+    return minInd;
+}
+
+Array&amp; Array::operator=(const Array&amp; other) 
+{
+    if (this == &amp;other) return *this;
+    delete[] arr;
+    n = other.n;
+    arr = new int[n];
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = other.arr[i];
+    }
+    return *this;
+}
+
+Array&amp; Array::operator-=(int key) 
+{
+    int pos = FindKey(key);
+    if (pos == -1) return *this;
+
+    int* temp = new int[n - 1];
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) {
+            temp[j++] = arr[i];
+        }
+    }
+    delete[] arr;
+    arr = temp;
+    n--;
+    return *this;
+}
+
+Array Array::operator-(int key) const 
+{
+    Array res(*this);
+    res -= key;
+    return res;
+}</pre>
+  </div>
+</details>
+
+<div class="cat-title">📚 Все 6 классов целиком (Из PDF)</div>
+
+<!-- ==================== 1. CIRCLE ==================== -->
+<details>
+  <summary>1. Circle (Круг)</summary>
+  <div class="note">
+    <b>Объяснение для билета:</b> Конструктор копирования и деструктор не требуются, т.к. в классе Circle нет указателей и не выделяется динамическая память (поля double x, y, r хранятся в стеке). Стандартный конструктор копирования (побитовое копирование) и деструктор по умолчанию работают корректно.
+  </div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+class Circle {
+private:
+    double x, y; // координаты центра
+    double r;    // радиус
+
+public:
+    // --- Конструкторы ---
+    Circle(double _x = 0.0, double _y = 0.0, double _r = 1.0);
+
+    // --- Обычные методы ---
+    void Input();                                    // ввод с клавиатуры
+    void Output() const;                             // вывод на экран
+    double Area() const;                             // нахождение площади круга
+    bool IsPointInside(double px, double py) const;  // проверка, попадает ли точка (px, py) в круг
+
+    // --- Перегрузка операторов ---
+    Circle operator+(double k) const;
+    Circle&amp; operator+=(double k);
+
+    bool operator==(const Circle&amp; other) const;
+    bool operator!=(const Circle&amp; other) const;
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, Circle&amp; c);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Circle&amp; c);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ВНЕ КЛАССА =================
+
+Circle::Circle(double _x, double _y, double _r) : x(_x), y(_y) {
+    r = (_r &gt; 0) ? _r : 1.0;
+}
+
+void Circle::Input() {
+    cout &lt;&lt; "Введите x, y и r: ";
+    cin &gt;&gt; x &gt;&gt; y &gt;&gt; r;
+}
+
+void Circle::Output() const {
+    cout &lt;&lt; "Центр: (" &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; "), Радиус: " &lt;&lt; r &lt;&lt; endl;
+}
+
+double Circle::Area() const {
+    return 3.141592653589793 * r * r;
+}
+
+bool Circle::IsPointInside(double px, double py) const {
+    return ((px - x) * (px - x) + (py - y) * (py - y)) &lt;= (r * r);
+}
+
+Circle Circle::operator+(double k) const {
+    return Circle(x, y, r * k);
+}
+
+Circle&amp; Circle::operator+=(double k) {
+    r *= k;
+    return *this;
+}
+
+bool Circle::operator==(const Circle&amp; other) const {
+    return r == other.r;
+}
+
+bool Circle::operator!=(const Circle&amp; other) const {
+    return r != other.r;
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, Circle&amp; c) {
+    in &gt;&gt; c.x &gt;&gt; c.y &gt;&gt; c.r;
+    return in;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Circle&amp; c) {
+    out &lt;&lt; "Center(" &lt;&lt; c.x &lt;&lt; ", " &lt;&lt; c.y &lt;&lt; "), R = " &lt;&lt; c.r;
+    return out;
+}</pre>
+</details>
+
+<!-- ==================== 2. FREEVECTOR ==================== -->
+<details>
+  <summary>2. FreeVector (Вектор)</summary>
+  <div class="note">
+    <b>Объяснение для билета:</b> Конструктор копирования и деструктор не требуются, т.к. в классе FreeVector нет указателей и не выделяется динамическая память (поля double x, y, z хранятся в стеке). Стандартный конструктор копирования и деструктор по умолчанию работают корректно.
+  </div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+class FreeVector {
+private:
+    double x, y, z; // координаты вектора
+
+public:
+    FreeVector(double _x = 0.0, double _y = 0.0, double _z = 0.0);
+
+    void Input();               // ввод вектора
+    void Output() const;        // вывод вектора
+    double Length() const;      // нахождение длины (модуля) вектора
+
+    // Операции + и += (сумма векторов)
+    FreeVector operator+(const FreeVector&amp; v) const;
+    FreeVector&amp; operator+=(const FreeVector&amp; v);
+
+    // Операции - и -= (разность векторов)
+    FreeVector operator-(const FreeVector&amp; v) const;
+    FreeVector&amp; operator-=(const FreeVector&amp; v);
+
+    // Операция * (скалярное произведение векторов — возвращает double!)
+    double operator*(const FreeVector&amp; v) const;
+
+    // Операции сравнения (== и !=)
+    bool operator==(const FreeVector&amp; v) const;
+    bool operator!=(const FreeVector&amp; v) const;
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, FreeVector&amp; v);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const FreeVector&amp; v);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ВНЕ КЛАССА =================
+
+FreeVector::FreeVector(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
+
+void FreeVector::Input() {
+    cout &lt;&lt; "Введите координаты вектора x, y, z: ";
+    cin &gt;&gt; x &gt;&gt; y &gt;&gt; z;
+}
+
+void FreeVector::Output() const {
+    cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; ", " &lt;&lt; z &lt;&lt; ")" &lt;&lt; endl;
+}
+
+double FreeVector::Length() const {
+    return sqrt(x * x + y * y + z * z);
+}
+
+FreeVector FreeVector::operator+(const FreeVector&amp; v) const {
+    return FreeVector(x + v.x, y + v.y, z + v.z);
+}
+
+FreeVector&amp; FreeVector::operator+=(const FreeVector&amp; v) {
+    x += v.x;
+    y += v.y;
+    z += v.z;
+    return *this;
+}
+
+FreeVector FreeVector::operator-(const FreeVector&amp; v) const {
+    return FreeVector(x - v.x, y - v.y, z - v.z);
+}
+
+FreeVector&amp; FreeVector::operator-=(const FreeVector&amp; v) {
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return *this;
+}
+
+double FreeVector::operator*(const FreeVector&amp; v) const {
+    return x * v.x + y * v.y + z * v.z;
+}
+
+bool FreeVector::operator==(const FreeVector&amp; v) const {
+    return (x == v.x) &amp;&amp; (y == v.y) &amp;&amp; (z == v.z);
+}
+
+bool FreeVector::operator!=(const FreeVector&amp; v) const {
+    return !(*this == v);
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, FreeVector&amp; v) {
+    in &gt;&gt; v.x &gt;&gt; v.y &gt;&gt; v.z;
+    return in;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const FreeVector&amp; v) {
+    out &lt;&lt; "(" &lt;&lt; v.x &lt;&lt; ", " &lt;&lt; v.y &lt;&lt; ", " &lt;&lt; v.z &lt;&lt; ")";
+    return out;
+}</pre>
+</details>
+
+<!-- ==================== 3. COMPLEX ==================== -->
+<details>
+  <summary>3. Complex (Комплексное)</summary>
+  <div class="note">
+    <b>Объяснение для билета:</b> Конструктор копирования и деструктор не требуются, т.к. член-данные (double x, y) не располагаются в динамической памяти. Достаточно стандартного конструктора копирования и деструктора по умолчанию.
+  </div>
+<pre class="cpp-code">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+class Complex {
+private:
+    double x; // действительная часть (Re)
+    double y; // мнимая часть (Im)
+
+public:
+    Complex(double _x = 0.0, double _y = 0.0);
+
+    void Input();                   // ввод
+    void Output() const;            // вывод
+    double Modulus() const;         // модуль комплексного числа
+    Complex Conjugate() const;      // комплексно-сопряженное число (x - i*y)
+
+    Complex operator+(const Complex&amp; c) const;
+    Complex&amp; operator+=(const Complex&amp; c);
+
+    Complex operator-(const Complex&amp; c) const;
+    Complex&amp; operator-=(const Complex&amp; c);
+
+    Complex operator*(const Complex&amp; c) const;
+    Complex&amp; operator*=(const Complex&amp; c);
+
+    Complex operator/(const Complex&amp; c) const;
+    Complex&amp; operator/=(const Complex&amp; c);
+
+    bool operator==(const Complex&amp; c) const;
+    bool operator!=(const Complex&amp; c) const;
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, Complex&amp; c);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Complex&amp; c);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ВНЕ КЛАССА =================
+
+Complex::Complex(double _x, double _y) : x(_x), y(_y) {}
+
+void Complex::Input() {
+    cout &lt;&lt; "Введите действительную и мнимую часть (x, y): ";
+    cin &gt;&gt; x &gt;&gt; y;
+}
+
+void Complex::Output() const {
+    if (y &gt;= 0)
+        cout &lt;&lt; x &lt;&lt; " + " &lt;&lt; y &lt;&lt; "i" &lt;&lt; endl;
+    else
+        cout &lt;&lt; x &lt;&lt; " - " &lt;&lt; -y &lt;&lt; "i" &lt;&lt; endl;
+}
+
+double Complex::Modulus() const {
+    return sqrt(x * x + y * y);
+}
+
+Complex Complex::Conjugate() const {
+    return Complex(x, -y);
+}
+
+Complex Complex::operator+(const Complex&amp; c) const {
+    return Complex(x + c.x, y + c.y);
+}
+
+Complex&amp; Complex::operator+=(const Complex&amp; c) {
+    x += c.x;
+    y += c.y;
+    return *this;
+}
+
+Complex Complex::operator-(const Complex&amp; c) const {
+    return Complex(x - c.x, y - c.y);
+}
+
+Complex&amp; Complex::operator-=(const Complex&amp; c) {
+    x -= c.x;
+    y -= c.y;
+    return *this;
+}
+
+Complex Complex::operator*(const Complex&amp; c) const {
+    return Complex(x * c.x - y * c.y, x * c.y + y * c.x);
+}
+
+Complex&amp; Complex::operator*=(const Complex&amp; c) {
+    double tempX = x * c.x - y * c.y;
+    y = x * c.y + y * c.x;
+    x = tempX;
+    return *this;
+}
+
+Complex Complex::operator/(const Complex&amp; c) const {
+    double denom = c.x * c.x + c.y * c.y;
+    return Complex((x * c.x + y * c.y) / denom, (y * c.x - x * c.y) / denom);
+}
+
+Complex&amp; Complex::operator/=(const Complex&amp; c) {
+    double denom = c.x * c.x + c.y * c.y;
+    double tempX = (x * c.x + y * c.y) / denom;
+    y = (y * c.x - x * c.y) / denom;
+    x = tempX;
+    return *this;
+}
+
+bool Complex::operator==(const Complex&amp; c) const {
+    return (x == c.x) &amp;&amp; (y == c.y);
+}
+
+bool Complex::operator!=(const Complex&amp; c) const {
+    return !(*this == c);
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, Complex&amp; c) {
+    in &gt;&gt; c.x &gt;&gt; c.y;
+    return in;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Complex&amp; c) {
+    if (c.y &gt;= 0)
+        out &lt;&lt; c.x &lt;&lt; "+" &lt;&lt; c.y &lt;&lt; "i";
+    else
+        out &lt;&lt; c.x &lt;&lt; c.y &lt;&lt; "i";
+    return out;
+}</pre>
+</details>
+
+<!-- ==================== 4. ARRAY ==================== -->
+<details>
+  <summary>4. Array (Массив — все 17 п.)</summary>
+<pre class="cpp-code">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+
+class Array {
+private:
+    int* arr; // указатель на динамический массив
+    int n;    // число элементов массива
+
+public:
+    // --- Конструкторы и деструктор ---
+    Array(int n_ = 0);                      // конструктор по умолчанию / с размером
+    Array(const int* a, int n_);            // перевод обычного массива int* в объект Array
+    Array(const Array&amp; other);              // конструктор копирования (ОБЯЗАТЕЛЕН!)
+    ~Array();                               // деструктор (ОБЯЗАТЕЛЕН!)
+
+    // --- Методы из задания ---
+    void Input();                           // функция ввода
+    void Output() const;                    // функция вывода
+    void Random(int minVal = 0, int maxVal = 100); // формирование случайного массива
+
+    int FindKey(int key) const;             // поиск ключа (возвращает индекс или -1)
+    int MaxIndex() const;                   // нахождение max элемента (возвращает индекс)
+    int MinIndex() const;                   // нахождение min элемента (возвращает индекс)
+
+    // Добавление ключа на позицию pos:
+    void AddPos(int key, int pos);          // изменяется текущий объект
+    Array AddPosNew(int key, int pos) const;// создается новый объект
+
+    // Удаление элемента с позиции pos:
+    void DelPos(int pos);                   // изменяется текущий объект
+    Array DelPosNew(int pos) const;         // создается новый объект
+
+    // --- Перегрузка операторов ---
+    Array&amp; operator=(const Array&amp; other);   // = (присвоение)
+    int&amp; operator[](int index);             // [] (возвращает ссылку)
+
+    Array operator+(int key) const;         // +(int key) добавление ключа в конец (новый объект)
+    Array&amp; operator+=(int key);             // +=(int key) добавление ключа в конец (текущий объект)
+
+    Array operator+(const Array&amp; other) const; // +(Array) добавление массива в конец (новый объект)
+    Array&amp; operator+=(const Array&amp; other);     // +=(Array) добавление массива в конец (текущий объект)
+
+    Array operator-(int key) const;         // -(int key) удаление первого вхождения key (новый объект)
+    Array&amp; operator-=(int key);             // -=(int key) удаление первого вхождения key (текущий объект)
+
+    bool operator==(const Array&amp; other) const; // == (сравнение на равенство)
+    bool operator!=(const Array&amp; other) const; // != (сравнение на неравенство)
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, Array&amp; a);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Array&amp; a);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ВНЕ КЛАССА =================
+
+Array::Array(int n_) {
+    n = (n_ &gt; 0) ? n_ : 0;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = 0;
+    } else {
+        arr = nullptr;
+    }
+}
+
+Array::Array(const int* a, int n_) {
+    n = (n_ &gt; 0) ? n_ : 0;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = a[i];
+    } else {
+        arr = nullptr;
+    }
+}
+
+Array::Array(const Array&amp; other) {
+    n = other.n;
+    if (n &gt; 0) {
+        arr = new int[n];
+        for (int i = 0; i &lt; n; i++) arr[i] = other.arr[i];
+    } else {
+        arr = nullptr;
+    }
+}
+
+Array::~Array() {
+    delete[] arr;
+}
+
+void Array::Input() {
+    for (int i = 0; i &lt; n; i++) cin &gt;&gt; arr[i];
+}
+
+void Array::Output() const {
+    for (int i = 0; i &lt; n; i++) cout &lt;&lt; arr[i] &lt;&lt; " ";
+    cout &lt;&lt; endl;
+}
+
+void Array::Random(int minVal, int maxVal) {
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = minVal + rand() % (maxVal - minVal + 1);
+    }
+}
+
+int Array::FindKey(int key) const {
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] == key) return i;
+    }
+    return -1;
+}
+
+int Array::MaxIndex() const {
+    if (n == 0) return -1;
+    int maxIdx = 0;
+    for (int i = 1; i &lt; n; i++) {
+        if (arr[i] &gt; arr[maxIdx]) maxIdx = i;
+    }
+    return maxIdx;
+}
+
+int Array::MinIndex() const {
+    if (n == 0) return -1;
+    int minIdx = 0;
+    for (int i = 1; i &lt; n; i++) {
+        if (arr[i] &lt; arr[minIdx]) minIdx = i;
+    }
+    return minIdx;
+}
+
+void Array::AddPos(int key, int pos) {
+    if (pos &lt; 0 || pos &gt; n) return;
+    int* temp = new int[n + 1];
+    for (int i = 0; i &lt; pos; i++) temp[i] = arr[i];
+    temp[pos] = key;
+    for (int i = pos; i &lt; n; i++) temp[i + 1] = arr[i];
+    delete[] arr;
+    arr = temp;
+    n++;
+}
+
+Array Array::AddPosNew(int key, int pos) const {
+    Array res(*this);
+    res.AddPos(key, pos);
+    return res;
+}
+
+void Array::DelPos(int pos) {
+    if (pos &lt; 0 || pos &gt;= n) return;
+    if (n == 1) {
+        delete[] arr;
+        arr = nullptr;
+        n = 0;
+        return;
+    }
+    int* temp = new int[n - 1];
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) temp[j++] = arr[i];
+    }
+    delete[] arr;
+    arr = temp;
+    n--;
+}
+
+Array Array::DelPosNew(int pos) const {
+    if (pos &lt; 0 || pos &gt;= n) return *this;
+    Array res(n - 1);
+    int j = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (i != pos) res.arr[j++] = arr[i];
+    }
+    return res;
+}
+
+Array&amp; Array::operator=(const Array&amp; other) {
+    if (this != &amp;other) {
+        delete[] arr;
+        n = other.n;
+        if (n &gt; 0) {
+            arr = new int[n];
+            for (int i = 0; i &lt; n; i++) arr[i] = other.arr[i];
+        } else {
+            arr = nullptr;
+        }
+    }
+    return *this;
+}
+
+int&amp; Array::operator[](int index) {
+    return arr[index];
+}
+
+Array&amp; Array::operator+=(int key) {
+    int* temp = new int[n + 1];
+    for (int i = 0; i &lt; n; i++) temp[i] = arr[i];
+    temp[n] = key;
+    delete[] arr;
+    arr = temp;
+    n++;
+    return *this;
+}
+
+Array Array::operator+(int key) const {
+    Array res(*this);
+    res += key;
+    return res;
+}
+
+Array&amp; Array::operator+=(const Array&amp; other) {
+    if (other.n == 0) return *this;
+    int* temp = new int[n + other.n];
+    for (int i = 0; i &lt; n; i++) temp[i] = arr[i];
+    for (int i = 0; i &lt; other.n; i++) temp[n + i] = other.arr[i];
+    delete[] arr;
+    arr = temp;
+    n += other.n;
+    return *this;
+}
+
+Array Array::operator+(const Array&amp; other) const {
+    Array res(*this);
+    res += other;
+    return res;
+}
+
+Array&amp; Array::operator-=(int key) {
+    int pos = FindKey(key);
+    if (pos != -1) {
+        DelPos(pos);
+    }
+    return *this;
+}
+
+Array Array::operator-(int key) const {
+    Array res(*this);
+    res -= key;
+    return res;
+}
+
+bool Array::operator==(const Array&amp; other) const {
+    if (n != other.n) return false;
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] != other.arr[i]) return false;
+    }
+    return true;
+}
+
+bool Array::operator!=(const Array&amp; other) const {
+    return !(*this == other);
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, Array&amp; a) {
+    for (int i = 0; i &lt; a.n; i++) in &gt;&gt; a.arr[i];
+    return in;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Array&amp; a) {
+    for (int i = 0; i &lt; a.n; i++) out &lt;&lt; a.arr[i] &lt;&lt; " ";
+    return out;
+}</pre>
+</details>
+
+<!-- ==================== 5. STRING ==================== -->
+<details>
+  <summary>5. String (Строка)</summary>
+<pre class="cpp-code">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class String {
+private:
+    char* line; // указатель на строку
+    int len;    // длина строки
+
+public:
+    String(int L = 80);               // конструктор по умолчанию / заданной длины
+    String(const char* s);            // конструктор инициализации C-строкой
+    String(const String&amp; other);      // конструктор копирования
+    ~String();                        // деструктор
+
+    String&amp; operator=(const String&amp; other);      // = (присвоение)
+    char&amp; operator[](int index);                 // [] (возвращает ссылку на символ)
+
+    String operator+(const String&amp; other) const; // + (конкатенация — создает новую строку)
+    String&amp; operator+=(const String&amp; other);     // += (конкатенация — изменяет текущую строку)
+
+    bool operator==(const String&amp; other) const;  // == (сравнение строк на равенство)
+    bool operator!=(const String&amp; other) const;  // != (сравнение строк на неравенство)
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; in, String&amp; s);
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const String&amp; s);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ВНЕ КЛАССА =================
+
+String::String(int L) {
+    len = (L &gt; 0) ? L : 0;
+    line = new char[len + 1];
+    line[0] = '\0';
+}
+
+String::String(const char* s) {
+    len = strlen(s);
+    line = new char[len + 1];
+    strcpy(line, s);
+}
+
+String::String(const String&amp; other) {
+    len = other.len;
+    line = new char[len + 1];
+    strcpy(line, other.line);
+}
+
+String::~String() {
+    delete[] line;
+}
+
+String&amp; String::operator=(const String&amp; other) {
+    if (this != &amp;other) {
+        delete[] line;
+        len = other.len;
+        line = new char[len + 1];
+        strcpy(line, other.line);
+    }
+    return *this;
+}
+
+char&amp; String::operator[](int index) {
+    return line[index];
+}
+
+String String::operator+(const String&amp; other) const {
+    String res(len + other.len);
+    strcpy(res.line, line);
+    strcat(res.line, other.line);
+    return res;
+}
+
+String&amp; String::operator+=(const String&amp; other) {
+    len += other.len;
+    char* temp = new char[len + 1];
+    strcpy(temp, line);
+    strcat(temp, other.line);
+    delete[] line;
+    line = temp;
+    return *this;
+}
+
+bool String::operator==(const String&amp; other) const {
+    return strcmp(line, other.line) == 0;
+}
+
+bool String::operator!=(const String&amp; other) const {
+    return strcmp(line, other.line) != 0;
+}
+
+istream&amp; operator&gt;&gt;(istream&amp; in, String&amp; s) {
+    char buffer[256];
+    in &gt;&gt; buffer;
+    delete[] s.line;
+    s.len = strlen(buffer);
+    s.line = new char[s.len + 1];
+    strcpy(s.line, buffer);
+    return in;
+}
+
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const String&amp; s) {
+    out &lt;&lt; s.line;
+    return out;
+}</pre>
+</details>
+
+<!-- ==================== 6. STACK<T> ==================== -->
+<details>
+  <summary>6. Stack&lt;T&gt; (Шаблон стека)</summary>
+<pre class="cpp-code">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;class T&gt;
+class Stack {
+private:
+    T* arr;  // массив элементов стека
+    int max; // максимальный размер массива arr
+    int n;   // количество реальных элементов в стеке
+
+public:
+    Stack(int k = 50);                  // конструктор (по умолчанию k = 50)
+    Stack(const Stack&lt;T&gt;&amp; other);       // конструктор копирования
+    ~Stack();                           // деструктор
+
+    bool IsEmpty() const;               // проверка на пустоту
+    bool IsFull() const;                // проверка на заполненность
+    bool Push(const T&amp; item);           // добавить в стек элемент
+    bool Pop(T&amp; item);                  // удалить из стека элемент
+    T Top() const;                      // взять значение с вершины стека
+
+    Stack&lt;T&gt;&amp; operator=(const Stack&lt;T&gt;&amp; other); // = (присвоение)
+
+    template &lt;class U&gt;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Stack&lt;U&gt;&amp; s);
+};
+
+// ================= ОПРЕДЕЛЕНИЕ МЕТОДОВ ШАБЛОНА ВНЕ КЛАССА =================
+
+template &lt;class T&gt;
+Stack&lt;T&gt;::Stack(int k) {
+    max = (k &gt; 0) ? k : 50;
+    n = 0;
+    arr = new T[max];
+}
+
+template &lt;class T&gt;
+Stack&lt;T&gt;::Stack(const Stack&lt;T&gt;&amp; other) {
+    max = other.max;
+    n = other.n;
+    arr = new T[max];
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = other.arr[i];
+    }
+}
+
+template &lt;class T&gt;
+Stack&lt;T&gt;::~Stack() {
+    delete[] arr;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::IsEmpty() const {
+    return n == 0;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::IsFull() const {
+    return n == max;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::Push(const T&amp; item) {
+    if (IsFull()) return false;
+    arr[n++] = item;
+    return true;
+}
+
+template &lt;class T&gt;
+bool Stack&lt;T&gt;::Pop(T&amp; item) {
+    if (IsEmpty()) return false;
+    item = arr[--n];
+    return true;
+}
+
+template &lt;class T&gt;
+T Stack&lt;T&gt;::Top() const {
+    return arr[n - 1];
+}
+
+template &lt;class T&gt;
+Stack&lt;T&gt;&amp; Stack&lt;T&gt;::operator=(const Stack&lt;T&gt;&amp; other) {
+    if (this != &amp;other) {
+        delete[] arr;
+        max = other.max;
+        n = other.n;
+        arr = new T[max];
+        for (int i = 0; i &lt; n; i++) {
+            arr[i] = other.arr[i];
+        }
+    }
+    return *this;
+}
+
+template &lt;class U&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const Stack&lt;U&gt;&amp; s) {
+    for (int i = 0; i &lt; s.n; i++) {
+        out &lt;&lt; s.arr[i] &lt;&lt; " ";
+    }
+    return out;
+}</pre>
+</details>
+
+<div class="cat-title">📖 Теоретическая часть (15 вопросов)</div>
+
+<details>
+  <summary class="theory-sum">1. Принципы ООП, класс, this</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Принципы ООП:</b>
+      <ol>
+        <li><b>Инкапсуляция</b> — объединение данных и методов их обработки в классе + защита данных от прямого доступа извне (сокрытие).</li>
+        <li><b>Наследование</b> — создание нового класса (потомка) на базе существующего с перенятием его свойств и методов.</li>
+        <li><b>Полиморфизм</b> — один интерфейс и множество реализаций (перегрузка функций/операций, виртуальные методы).</li>
+      </ol>
+      <b>Класс</b> — пользовательский тип данных, объединяющий член-данные и член-функции (методы).<br>
+      <b>Объект</b> — конкретный экземпляр (переменная) типа класс в памяти.<br>
+      <b>Сокрытие информации</b> — размещение данных в секции <code>private</code>, доступ извне — только через <code>public</code>-методы.<br>
+      <b>Отличие методов от обычных функций:</b> объявляются внутри класса; имеют доступ к <code>private</code>-членам; вызываются через объект (<code>.</code> или <code>-&gt;</code>); имеют неявный указатель <code>this</code>.<br>
+      <b>Типы доступа:</b>
+      <ul>
+        <li><code>private</code> (закрытый, по умолчанию) — доступ только методам самого класса и <code>friend</code>.</li>
+        <li><code>protected</code> (защищенный) — доступ методам самого класса, <code>friend</code> и классам-наследникам.</li>
+        <li><code>public</code> (открытый) — доступ из любого места программы (в т.ч. в <code>main</code>).</li>
+      </ul>
+      <b>Указатель <code>this</code></b> — константный указатель (<code>Class* const this</code>), который неявно передается в любой нестатический метод и хранит адрес объекта, для которого вызван метод.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">2. Методы, операция ::, внутри/вне</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Отличие член-функций от обычных:</b> объявлены внутри класса; имеют доступ к <code>private</code>-полям; вызываются через объект; содержат указатель <code>this</code>.<br>
+      <b>Операция <code>::</code> (разрешение области видимости)</b> — указывает, какому классу принадлежит метод или статическое поле при определении вне класса (<code>Class::Method()</code>).<br>
+      <b>Внутри класса vs Вне класса:</b>
+      <ul>
+        <li>Определенные <b>внутри класса</b> автоматически считаются встраиваемыми (<code>inline</code>) — компилятор подставляет их код в место вызова.</li>
+        <li>Определенные <b>вне класса</b> (через <code>::</code>) компилируются как обычные функции (если явно не написать <code>inline</code>).</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">3. Конструкторы и деструкторы</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Конструктор</b> — спец. метод для автоматической инициализации член-данных объекта при его создании (и выделения памяти).<br>
+      <b>Особенности конструктора:</b> имя совпадает с именем класса; нет возвращаемого значения (даже <code>void</code>); вызывается автоматически; может иметь аргументы и быть перегружен.<br>
+      <b>Деструктор</b> — спец. метод для освобождения ресурсов (динамической памяти) перед уничтожением объекта.<br>
+      <b>Особенности деструктора:</b> имя <code>~ИмяКласса()</code>; нет возвращаемого типа; <b>всегда без аргументов</b>; <b>не может быть перегружен</b>; вызывается автоматически при выходе из области видимости или при <code>delete</code>.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">4. Конструктор копирования vs =</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Конструктор копирования</b> <code>A(const A&amp; other)</code> — создает <b>новый объект</b>, копируя данные из существующего объекта того же класса.<br>
+      <b>Когда необходим и почему:</b> обязателен, если член-данные находятся в <b>динамической памяти</b> (есть указатели). Иначе конструктор по умолчанию сделает поверхностное копирование (два указателя на одну память &rarr; порча данных и двойной <code>delete[]</code>).<br>
+      <b>Отличие от операции <code>=</code>:</b>
+      <ol>
+        <li>Конструктор копирования создает <b>новый объект</b>, а <code>=</code> изменяет <b>уже существующий</b>.</li>
+        <li>В <code>=</code> нужна проверка <code>this != &amp;other</code> и очистка старой памяти <code>delete[]</code>.</li>
+        <li>Операция <code>=</code> возвращает <code>*this</code> по ссылке.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">5. Правила перегрузки. + и +=</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Правила перегрузки операций:</b>
+      <ol>
+        <li>Хотя бы один операнд должен быть пользовательского типа (класса).</li>
+        <li>Нельзя создавать новые знаки операций (например, <code>~=</code>).</li>
+        <li>Нельзя менять приоритет, ассоциативность и местность (арность).</li>
+        <li>Нельзя перегружать: <code>.</code>, <code>.*</code>, <code>::</code>, <code>?:</code>, <code>sizeof</code>.</li>
+        <li>Операции <code>=</code>, <code>[]</code>, <code>()</code>, <code>-&gt;</code> перегружаются <b>только как методы класса</b>.</li>
+        <li>Как <b>метод класса</b>: унарная — 0 аргументов, бинарная — 1 аргумент. Как <b>friend</b>: унарная — 1 аргумент, бинарная — 2 аргумента.</li>
+      </ol>
+      <b>Отличие <code>+</code> от <code>+=</code>:</b> <code>+</code> не меняет операнды, создает новый объект и возвращает его <b>по значению</b>; <code>+=</code> изменяет левый операнд (<code>*this</code>) и возвращает его <b>по ссылке</b>.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">6. Перегрузка операций [] и ()</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Индексация <code>[]</code>:</b> перегружается <b>только как нестатический метод класса</b>; имеет 1 аргумент (индекс); возвращает <b>ссылку</b> на элемент (<code>T&amp; operator[](int i)</code>), чтобы объект мог стоять слева от <code>=</code>.<br>
+      <b>Вызов функции <code>()</code>:</b> перегружается <b>только как нестатический метод класса</b>; единственный оператор, который может иметь <b>произвольное число аргументов</b> (от 0 и более).
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">7. Перегрузка (тип) и ++</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Приведение типа <code>operator тип()</code>:</b> только как метод класса; без аргументов; перед словом <code>operator</code> возвращаемый тип не пишется.<br>
+      <b>Инкремент <code>++</code>:</b>
+      <ul>
+        <li>Префиксный (<code>++a</code>): без аргументов <code>A&amp; operator++()</code>, меняет <code>*this</code> и возвращает ссылку <code>*this</code>.</li>
+        <li>Постфиксный (<code>a++</code>): с фиктивным параметром <code>int</code> <code>A operator++(int)</code>, сохраняет копию, меняет <code>*this</code>, возвращает старую копию по значению.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">8. Перегрузка операции =</summary>
+  <div class="qa">
+    <div class="a">
+      Перегружается <b>только как нестатический метод класса</b>. Обязательна в классах с <b>динамической памятью</b>.<br>
+      Шаги внутри <code>operator=</code>: 1) проверка на самоприсваивание <code>if (this == &amp;other) return *this;</code>; 2) освобождение старой памяти <code>delete[]</code>; 3) выделение новой памяти и копирование; 4) <code>return *this;</code>.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">9. Дружественность, потоки &lt;&lt; и &gt;&gt;</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Другом класса (<code>friend</code>)</b> может быть: обычная функция, метод другого класса, другой класс целиком. Имеет доступ к <code>private</code>-членам, не имеет <code>this</code>.<br>
+      <b>Общее у <code>&lt;&lt;</code> и <code>&gt;&gt;</code>:</b> перегружаются как <code>friend</code> с 2 аргументами; 1-й аргумент и возврат — ссылка на поток.<br>
+      <b>Разница:</b> в <code>&lt;&lt;</code> поток <code>ostream&amp;</code> и объект передается по <code>const</code>-ссылке; в <code>&gt;&gt;</code> поток <code>istream&amp;</code> и объект по неконстантной ссылке.<br>
+      <b>Почему нельзя как метод класса:</b> в методе класса левым операндом всегда идет объект класса (через <code>this</code>), вызов был бы <code>obj &lt;&lt; cout</code>.<br>
+      <b>Обязательна ли ссылка:</b> да, потоки запрещено копировать + ссылка нужна для цепочек и записи в объект.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">10. Массивы объектов</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Статический массив:</b> без списка инициализации — вызывается конструктор по умолчанию; со списком инициализации <code>{ A(1), A(2,3) }</code> — можно вызывать любые (в т.ч. разные) конструкторы.<br>
+      <b>Динамический массив (<code>new A[n]</code>):</b> явно инициализировать параметрами нельзя, вызывается только конструктор по умолчанию.<br>
+      <b>Порядок вызова:</b> конструкторы — от <code>0</code> до <code>n-1</code>; деструкторы — в обратном порядке от <code>n-1</code> до <code>0</code>.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">11-12. Агрегированные классы</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Агрегированный класс</b> — класс, содержащий в качестве член-данных объекты или указатели на объекты другого (используемого) класса.<br>
+      <b>Если поле — указатель (<code>A* ptr;</code>):</b> в конструкторе включающего класса нужно явно выделить память через <code>ptr = new A(аргументы);</code>.<br>
+      <b>Как получить доступ к <code>private</code>-полям используемого класса:</b> 1) через его открытые (<code>public</code>) методы; 2) объявить агрегированный класс другом (<code>friend</code>) внутри используемого класса.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">13. Функции- и классы-шаблоны</summary>
+  <div class="qa">
+    <div class="a">
+      <b>Шаблон</b> — параметризованное описание функции или класса, где типы данных, аргументов и возвращаемых значений методов заданы параметром <code>template &lt;class T&gt;</code>.<br>
+      <b>Порожденная функция</b> — конкретная функция, сгенерированная компилятором из шаблона при подстановке конкретного типа вместо <code>T</code>.<br>
+      <b>Использование:</b> для функции тип выводится автоматически по аргументам; для класса-шаблона тип указывается явно в угловых скобках: <code>Stack&lt;int&gt; s;</code>.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">14. Статические член-данные</summary>
+  <div class="qa">
+    <div class="a">
+      Объявляются внутри класса со словом <code>static</code>. Существуют в <b>единственном экземпляре</b> на весь класс (общие для всех объектов) даже без создания объектов.<br>
+      <b>Инициализация:</b> обязательно вне класса через <code>::</code> без слова <code>static</code> (<code>int A::count = 0;</code>). Тип доступа (<code>private/public</code>) на инициализацию не влияет.<br>
+      <b>В <code>main</code>:</b> если поле <code>public</code> — доступно и изменяемо через <code>A::count</code> или <code>obj.count</code>; если <code>private</code> — доступ только через <code>public</code>-методы.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary class="theory-sum">15. Статические методы класса</summary>
+  <div class="qa">
+    <div class="a">
+      Объявляются в классе со словом <code>static</code>, определяются вне класса через <code>::</code> без слова <code>static</code>.<br>
+      <b>Особенности:</b> 1) <b>не имеют указателя <code>this</code></b>; 2) могут обращаться напрямую только к статическим членам класса; 3) если метод <code>public</code>, вызывается в <code>main</code> через <code>Class::Method()</code> или <code>obj.Method()</code> (если <code>private</code> — вызвать в <code>main</code> нельзя).
+    </div>
+  </div>
+</details>
+
+<script>
+  let fontSize = 11;
+  let isDimmed = false;
+
+  function changeFont(delta) {
+    fontSize = Math.min(18, Math.max(8, fontSize + delta));
+    document.documentElement.style.setProperty('--font-size', fontSize + 'px');
+  }
+
+  function toggleDim() {
+    isDimmed = !isDimmed;
+    document.documentElement.style.setProperty('--brightness', isDimmed ? '0.45' : '1');
+  }
+
+  function closeAll() {
+    document.querySelectorAll('details').forEach(d => d.removeAttribute('open'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Подсветка C++ синтаксиса в стиле VS Code Dark+
+  const tokenRegex = /(\/\/[^\n]*)|(#include)(\s*&lt;[^&]+&gt;)|("[^"]*"|'[^']*')|\b(if|else|for|return)\b|\b(class|private|public|friend|using|namespace|template|const|void|double|float|int|bool|char|new|delete|this|true|false|nullptr)\b|\b(Circle|FreeVector|Complex|Array|String|Stack|Same|istream|ostream|std)\b|\b(operator|Print|Sum|main|Input|Output|Area|IsPointInside|Length|Modulus|Conjugate|Random|FindKey|FindMin|MaxIndex|MinIndex|AddPosNew|AddPos|DelPosNew|DelPos|IsEmpty|IsFull|Push|Pop|Top|sqrt|rand|strlen|strcpy|strcat|strcmp|getline)\b|\b(\d+(?:\.\d+)?)\b/g;
+
+  document.querySelectorAll('pre.cpp-code').forEach(block => {
+    block.innerHTML = block.innerHTML.replace(
+      tokenRegex,
+      (match, cm, pp, hdr, str, ctrl, kw, type, fn, num) => {
+        if (cm)   return `<span class="hl-cm">${cm}</span>`;
+        if (pp)   return `<span class="hl-pp">${pp}</span><span class="hl-str">${hdr}</span>`;
+        if (str)  return `<span class="hl-str">${str}</span>`;
+        if (ctrl) return `<span class="hl-ctrl">${ctrl}</span>`;
+        if (kw)   return `<span class="hl-kw">${kw}</span>`;
+        if (type) return `<span class="hl-type">${type}</span>`;
+        if (fn)   return `<span class="hl-fn">${fn}</span>`;
+        if (num)  return `<span class="hl-num">${num}</span>`;
+        return match;
+      }
+    );
+  });
+</script>
+
+</body>
+</html>
